@@ -1,0 +1,12 @@
+{
+  "name": "troca_plantao_v1",
+  "version": "1.0.0",
+  "description": "API aplicação para conciliação de trocas entre users",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "DuStein",
+  "license": "ISC"
+}
