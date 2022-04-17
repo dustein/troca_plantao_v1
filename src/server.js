@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-
+const Propose = require('./models');
 const URL = process.env.URI;
 
 const app = express();
@@ -24,19 +24,26 @@ function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, pla
     return newUser;
 };
 
-function makePropose(proposeId, userIdPropose) {
-    const newPropose = {
-        proposeId: id,
-        userIdPropose: userIdPropose,
-        userIdAccepted: 'Não Confirmado',
-        status: false
-    }
-    propose.push(newPropose);
-    return newPropose;
-};
+// function makePropose(proposeId, userIdPropose) {
+//     const newPropose = {
+//         proposeId: proposeId,
+//         userIdPropose: userIdPropose,
+//         userIdAccepted: 'Não Confirmado',
+//         status: false
+//     }
+//     propose.push(newPropose);
+//     console.log('propose:', propose)
+//     return newPropose;
+// };
+
+function createPropose() {
+    
+}
+
 
 function acceptPropose(proposeId) {
-    const selectedPropose = propose.map(id => id === proposeId);
+    const selectedPropose = propose.filter((selected) => selected.selectedId == proposeId);
+    console.log(selectedPropose)
     return selectedPropose;
 }
 
@@ -63,8 +70,16 @@ app.post('/propose', (req, res) => {
 });
 
 app.put('/propose', (req, res) => {
-    const selectedPropose = acceptPropose(proposeId);
-    
-})
+    const teste = propose.filter( select => {
+        select.proposeId == '2'
+        teste.status = true;
+    })
+    // const { proposeId } = req.body;
+    // const proposeCase = acceptPropose(proposeId);
+    // console.log(proposeCase)
+    // proposeCase.status = true;
+    // res.json(proposeCase);
+    res.json(teste);
+});
 
 app.listen(3000, () => console.log('Servidor ATIVO!'));
