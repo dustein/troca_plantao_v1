@@ -1,7 +1,8 @@
-import express from "express";
-import "dotenv/config.js"; 
+const express = require('express');
+require('dotenv').config();
 
 const URL = process.env.URI;
+
 
 
 
