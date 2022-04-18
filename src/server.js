@@ -18,24 +18,6 @@ mongoose.connect('mongodb://localhost/plantao');
 const app = express();
 app.use(express.json());
 
-const users = [];
-const propose = [];
-
-// function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao) {
-//     const newUser = new User ({
-//         id: id,
-//         apelido: apelido,
-//         nome: nome,
-//         funcional: funcional,
-//         telefone: telefone,
-//         email: email,
-//         unidade: unidade,
-//         plantao: plantao
-//     });
-    
-//     return newUser;
-// };
-
 // function makePropose(proposeId, userIdPropose) {
 //     const newPropose = {
 //         proposeId: proposeId,
@@ -82,13 +64,6 @@ app.get('/propose', (req, res) => {
 });
 
 
-// app.post('/user', (req, res) => {
-//     const { id, apelido, nome, funcional, telefone, email, unidade, plantao } = req.body;
-//     newUser = makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao);
-//     newUser.save();
-//     console.log(newUser)
-//     res.status(201).json(newUser);
-// });
 app.post('/user', UserController.makeNewUser);
 
 
