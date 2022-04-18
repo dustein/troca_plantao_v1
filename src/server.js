@@ -1,7 +1,18 @@
 const express = require('express');
+const { default: mongoose } = require('mongoose');
 require('dotenv').config();
-const Propose = require('./models/proposes');
-const URL = process.env.URI;
+const Propose = require('./models/Propose');
+const User = require('./models/User');
+
+//conexao Mongo Atlas
+// const URL = process.env.MONGO_URI;
+// mongoose.connect(URL, {
+//     userNewUrlParser: true,
+//     useUnifiedTopology: true
+// }, () => console.log("Conectado ao MongoDB"));
+
+//conexao Mongo Community local
+mongoose.connect('mongodb://localhost/plantao');
 
 const app = express();
 app.use(express.json());
@@ -10,7 +21,7 @@ const users = [];
 const propose = [];
 
 function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao) {
-    const newUser = {
+    const newUser = new User ({
         id: id,
         apelido: apelido,
         nome: nome,
@@ -19,8 +30,8 @@ function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, pla
         email: email,
         unidade: unidade,
         plantao: plantao
-    };
-    users.push(newUser);
+    });
+    
     return newUser;
 };
 
@@ -58,7 +69,11 @@ function acceptPropose(proposeId) {
 }
 
 app.get('/user', (req, res) => {
-    res.status(200).json(users);
+    User.find((err, users) => {
+        if(!err) {
+            res.status(200).json(users);
+        }
+    });
 });
 
 app.get('/propose', (req, res) => {
@@ -69,8 +84,9 @@ app.get('/propose', (req, res) => {
 app.post('/user', (req, res) => {
     const { id, apelido, nome, funcional, telefone, email, unidade, plantao } = req.body;
     newUser = makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao);
+    newUser.save();
     console.log(newUser)
-    res.status(201).send(newUser);
+    res.status(201).json(newUser);
 });
 
 app.post('/propose', (req, res) => {
