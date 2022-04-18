@@ -2,7 +2,8 @@ const mongooose = require('mongoose');
 
 const proposeSchema = new mongooose.Schema({
     id: String,
-    userIdPropose: String,
+    userIdPropose: { type: String, required: true},
+    plantao: String,
     userIdAccept: String,
     accept: {type: Boolean, default: false} 
 });

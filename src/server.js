@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const Propose = require('./models');
+const Propose = require('./models/proposes');
 const URL = process.env.URI;
 
 const app = express();
@@ -36,8 +36,18 @@ function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, pla
 //     return newPropose;
 // };
 
-function createPropose() {
+function createPropose(userIdPropose) {
+    const newPropose = new Propose({
+        userIdPropose: userIdPropose,
+        plantao: new Date()
+    })
     
+    newPropose.save((err) => {
+        if (err) {
+            return err
+        }
+    })
+    return newPropose
 }
 
 
@@ -64,8 +74,8 @@ app.post('/user', (req, res) => {
 });
 
 app.post('/propose', (req, res) => {
-    const { proposeId, userIdPropose } = req.body;
-    newPropose = makePropose(proposeId, userIdPropose);
+    const { userIdPropose } = req.body;
+    const newPropose = createPropose();
     res.status(201).json(newPropose);
 });
 
