@@ -3,6 +3,7 @@ const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const Propose = require('./models/Propose');
 const User = require('./models/User');
+const UserController = require('./controller/usersController');
 
 //conexao Mongo Atlas
 // const URL = process.env.MONGO_URI;
@@ -20,20 +21,20 @@ app.use(express.json());
 const users = [];
 const propose = [];
 
-function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao) {
-    const newUser = new User ({
-        id: id,
-        apelido: apelido,
-        nome: nome,
-        funcional: funcional,
-        telefone: telefone,
-        email: email,
-        unidade: unidade,
-        plantao: plantao
-    });
+// function makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao) {
+//     const newUser = new User ({
+//         id: id,
+//         apelido: apelido,
+//         nome: nome,
+//         funcional: funcional,
+//         telefone: telefone,
+//         email: email,
+//         unidade: unidade,
+//         plantao: plantao
+//     });
     
-    return newUser;
-};
+//     return newUser;
+// };
 
 // function makePropose(proposeId, userIdPropose) {
 //     const newPropose = {
@@ -81,13 +82,15 @@ app.get('/propose', (req, res) => {
 });
 
 
-app.post('/user', (req, res) => {
-    const { id, apelido, nome, funcional, telefone, email, unidade, plantao } = req.body;
-    newUser = makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao);
-    newUser.save();
-    console.log(newUser)
-    res.status(201).json(newUser);
-});
+// app.post('/user', (req, res) => {
+//     const { id, apelido, nome, funcional, telefone, email, unidade, plantao } = req.body;
+//     newUser = makeNewUser(id, apelido, nome, funcional, telefone, email, unidade, plantao);
+//     newUser.save();
+//     console.log(newUser)
+//     res.status(201).json(newUser);
+// });
+app.post('/user', UserController.makeNewUser);
+
 
 app.post('/propose', (req, res) => {
     const { userIdPropose } = req.body;
