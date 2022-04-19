@@ -1,16 +1,17 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
-const Propose = require('./models/Propose');
-const User = require('./models/User');
-const UserController = require('./controller/usersController');
+// const Propose = require('./models/Propose');
+// const User = require('./models/User');
+const usersController = require('./controller/usersController');
+const proposesController = require('./controller/proposesController');
 
 //conexao Mongo Atlas
-const URL = process.env.MONGO_URI;
-mongoose.connect(URL, () => console.log("Conectado ao MongoDB"));
+// const URL = process.env.MONGO_URI;
+// mongoose.connect(URL, () => console.log("Conectado ao MongoDB"));
 
 //conexao Mongo Community local
-// mongoose.connect('mongodb://localhost/plantao');
+mongoose.connect('mongodb://localhost/plantao', () => { console.log('Conectado MongoDB Local')});
 
 const app = express();
 app.use(express.json());
@@ -27,19 +28,19 @@ app.use(express.json());
 //     return newPropose;
 // };
 
-function createPropose(userIdPropose) {
-    const newPropose = new Propose({
-        userIdPropose: userIdPropose,
-        plantao: new Date()
-    })
+// function createPropose(userIdPropose) {
+//     const newPropose = new Propose({
+//         userIdPropose: userIdPropose,
+//         plantao: new Date()
+//     })
     
-    newPropose.save((err) => {
-        if (err) {
-            return err
-        }
-    })
-    return newPropose
-}
+//     newPropose.save((err) => {
+//         if (err) {
+//             return err
+//         }
+//     })
+//     return newPropose
+// }
 
 
 function acceptPropose(proposeId) {
@@ -56,19 +57,11 @@ app.get('/user', (req, res) => {
     });
 });
 
-app.get('/propose', (req, res) => {
-    res.status(200).json(propose);
-});
+app.get('/propose', proposesController.showAllProposes);
 
 
-app.post('/user', UserController.makeNewUser);
-
-
-app.post('/propose', (req, res) => {
-    const { userIdPropose } = req.body;
-    const newPropose = createPropose();
-    res.status(201).json(newPropose);
-});
+app.post('/user', usersController.makeNewUser);
+app.post('/propose', proposesController.makeNewPropose);
 
 app.put('/propose', (req, res) => {
     const teste = propose.filter( select => {

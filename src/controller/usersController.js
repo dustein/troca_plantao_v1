@@ -7,7 +7,7 @@ class UserController {
         const newUser = new User(req.body);
         newUser['id'] = uuidv4();
         newUser.save();
-        console.log(newUser)
+        console.log("criado newUser");
         res.status(201).json(newUser);
 
     };
