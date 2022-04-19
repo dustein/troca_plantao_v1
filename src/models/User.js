@@ -11,6 +11,7 @@ const userSchema = new Schema({
     email: 'string',
     unidade: 'string',
     plantao: 'string',
+    password: 'string',
     created_at: {type: Date, default: Date.now}
 });
 

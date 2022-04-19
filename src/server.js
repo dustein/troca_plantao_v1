@@ -6,14 +6,11 @@ const User = require('./models/User');
 const UserController = require('./controller/usersController');
 
 //conexao Mongo Atlas
-// const URL = process.env.MONGO_URI;
-// mongoose.connect(URL, {
-//     userNewUrlParser: true,
-//     useUnifiedTopology: true
-// }, () => console.log("Conectado ao MongoDB"));
+const URL = process.env.MONGO_URI;
+mongoose.connect(URL, () => console.log("Conectado ao MongoDB"));
 
 //conexao Mongo Community local
-mongoose.connect('mongodb://localhost/plantao');
+// mongoose.connect('mongodb://localhost/plantao');
 
 const app = express();
 app.use(express.json());
