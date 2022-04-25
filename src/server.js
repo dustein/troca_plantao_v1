@@ -1,6 +1,10 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
+const path = require('path');
+const cors = require('cors');
+
+
 const usersController = require('./controller/usersController');
 const proposesController = require('./controller/proposesController');
 
@@ -13,7 +17,11 @@ mongoose.connect('mongodb://localhost/plantao', () => { console.log('Conectado M
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
+app.get("/", (req, res) => {
+     res.sendFile(path.join(__dirname, '../views/index.html'));
 
+});
 
 app.get('/user', usersController.showAllUsers);
 app.get('/propose', proposesController.showAllProposes);
