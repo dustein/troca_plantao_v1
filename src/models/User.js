@@ -9,7 +9,7 @@ const userSchema = new Schema({
     funcional: 'string', 
     telefone: 'string',
     email: 'string',
-    unidade: 'string',
+    unidade: [unitySchema],
     plantao: 'string',
     password: 'string',
     created_at: {type: Date, default: Date.now}

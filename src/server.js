@@ -16,6 +16,7 @@ const proposesController = require('./controller/proposesController');
 mongoose.connect('mongodb://localhost/plantao', () => { console.log('Conectado MongoDB Local')});
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 app.get("/", (req, res) => {
