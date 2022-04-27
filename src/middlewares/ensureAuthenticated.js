@@ -2,18 +2,22 @@ const User = require("../models/User");
 
 
 async function ensureAuthenticated(req, res, next) {
-     const password = req.headers.password;
-     const apelido = req.body.apelido;
+     const { apelido, password } = req.headers;
 
-     const user = await User.findOne({apelido});
+
+     const user = await User.findOne({ apelido });
 
      if(!user) {
-          throw new Error("Usuario nao existe");
+          console.log("Usuario nao existe");
+          return res.send("Usuario nao existe");
      }
 
      if(user.password != password) {
-          throw new Error("Senha incorreta")
+          console.log("Senha incorreta");
+          return res.send("Senha incorreta")
      }
+
+     console.log("passou a middleware")
 
      next();
 }
