@@ -1,17 +1,30 @@
 const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 
+
+// function gerarSenhaHash(senha) {
+//     const custoHash = 12
+//     return bcrypt.hash(senha, custoHash);
+// };
+
+// async function adicionaSenha(pasword) {
+//     const senhaUser = await gerarSenhaHash(password)
+// };
 
 class UserController {
     
     static makeNewUser = (req, res) => {
         const newUser = new User(req.body);
         newUser['id'] = uuidv4();
+        newUser['password'] = req.headers.password;
         newUser.save();
         console.log("criado newUser");
         res.status(201).json(newUser);
 
     };
+
+    
 
     static showAllUsers = (req, res) => {
         User.find((err, users) => {
@@ -30,7 +43,7 @@ class UserController {
                 res.send(user)
             }
         })
-    }
+    };
 
     static delUser = (req, res) => {
         const id = req.params.id;
@@ -40,7 +53,8 @@ class UserController {
                 res.status(200).send(user)
             }
         })
-    }
+    };
+
 };
 
 module.exports = UserController;

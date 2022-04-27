@@ -7,10 +7,11 @@ const cors = require('cors');
 
 const usersController = require('./controller/usersController');
 const proposesController = require('./controller/proposesController');
+const ensureAuthenticated = require('./middlewares/ensureAuthenticated')
 
 //conexao Mongo Atlas
 // const URL = process.env.MONGO_URI;
-// mongoose.connect(URL, () => console.log("Conectado ao MongoDB"));
+// mongoose.connect(URL, ()userExists => console.log("Conectado ao MongoDB"));
 
 //conexao Mongo Community local
 mongoose.connect('mongodb://localhost/plantao', () => { console.log('Conectado MongoDB Local')});
@@ -31,7 +32,7 @@ app.get('/propose/:id', proposesController.selectProposeById);
 
 
 app.post('/user', usersController.makeNewUser);
-app.post('/propose', proposesController.makeNewPropose);
+app.post('/propose', ensureAuthenticated, proposesController.makeNewPropose);
 
 app.put('/propose/:id', proposesController.acceptProposeId);
 

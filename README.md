@@ -4,7 +4,8 @@ MongoDB local - community (pro note work)
 sudo systemctl start (status, stop) mongod
 string para conectar -> mongodb://localhost:<port>
 
-[] - usuarios podem se cadastrar
+[x] - usuarios podem se cadastrar
+[] - verificar autenticacao do user login apelido password
 [] - usuario adm pode criar ambiente
 [] - usuario adm pode criar plantao 
 [] - usuarios podem cadastrar proposta
