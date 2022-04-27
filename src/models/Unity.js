@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { v4 : uuidv4 } = requiere('uuid');
+const { v4 : uuidv4 } = require('uuid');
 
 const unitySchema = new mongoose.Schema ({
      id: String,
@@ -9,6 +9,6 @@ const unitySchema = new mongoose.Schema ({
      updated_at: {type: Date, default: Date.now}
 });
 
-const Unity = mongoose.Model('Unity', unitySchema)
+const Unity = mongoose.model('Unity', unitySchema)
 
 module.exports = Unity;

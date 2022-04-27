@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid');
-const { MongoUnexpectedServerResponseError } = require('mongodb');
+
 
 class UserController {
     
@@ -17,9 +17,29 @@ class UserController {
         User.find((err, users) => {
             if(!err) {
                 res.status(200).json(users);
-                console.log("listada todos os users")
+                console.log("listados todos os users")
             }
         });
+    };
+
+    static showUserById = (req, res) => {
+        const { id } = req.params;
+        console.log(`listado user id ${id}`);
+        User.findOne( {id: id}, (err, user) => {
+            if (!err) {
+                res.send(user)
+            }
+        })
+    }
+
+    static delUser = (req, res) => {
+        const id = req.params.id;
+        console.log(`apaga user id ${id}`);
+        User.findOneAndDelete({id: id}, (err, user) => {
+            if(!err) {
+                res.status(200).send(user)
+            }
+        })
     }
 };
 

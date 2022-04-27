@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/user', usersController.showAllUsers);
+app.get('/user/:id', usersController.showUserById);
 app.get('/propose', proposesController.showAllProposes);
 app.get('/propose/:id', proposesController.selectProposeById);
 
@@ -33,5 +34,8 @@ app.post('/user', usersController.makeNewUser);
 app.post('/propose', proposesController.makeNewPropose);
 
 app.put('/propose/:id', proposesController.acceptProposeId);
+
+app.delete('/user/:id', usersController.delUser);
+app.delete('/propose/:id', proposesController.delProposeById);
 
 app.listen(3000, () => console.log('Servidor ATIVO!'));

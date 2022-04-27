@@ -29,6 +29,16 @@ class proposesController {
             }
         });
 
+    };
+
+    static delProposeById = (req, res) => {
+        const id = req.params.id;
+        console.log(`deletar proposta id ${id}`)
+        Propose.findOneAndDelete({ id: id }, (err, propose) => {
+            if(!err) {
+                res.send("ok Propose deleted")
+            }
+        })
     }
 
     static selectProposeById = (req, res) => {
