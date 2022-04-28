@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 // function gerarSenhaHash(senha) {
@@ -17,7 +17,6 @@ class UserController {
     static makeNewUser = (req, res) => {
         const newUser = new User(req.body);
         newUser['id'] = uuidv4();
-        newUser['password'] = req.headers.password;
         newUser.save();
         console.log("criado newUser");
         res.status(201).json(newUser);

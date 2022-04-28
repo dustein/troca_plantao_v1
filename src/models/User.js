@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs/dist/bcrypt');
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const Unity = require('./Unity');
@@ -21,6 +22,14 @@ const userSchema = new Schema({
 },
 {
     versionKey: false
+});
+
+//Antes da funcao save() vamos aplicar o bcrypt no password do cadastro
+userSchema.pre('save', async function(next) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+
+    next();
 });
 
 const User = mongoose.model('User', userSchema);
