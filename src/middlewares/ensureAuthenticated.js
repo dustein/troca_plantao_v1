@@ -1,6 +1,5 @@
 const User = require("../models/User");
 
-
 async function ensureAuthenticated(req, res, next) {
      const { apelido, password } = req.headers;
 

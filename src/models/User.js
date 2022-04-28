@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     id: 'string',
-    apelido: {type: String, required: false},
+    apelido: {type: String, unique: true, required: false},
     nome: 'string',
     funcional: 'string', 
     telefone: 'string',
@@ -14,7 +14,8 @@ const userSchema = new Schema({
     unidade_adm: Boolean,
     plantao: 'string',
     chefe_plantao: Boolean,
-    password: 'string',
+    password: 'string'
+    //password: {type: 'string' select:false} - para o password nao aparecer na busca e listagem
     // created_at: {type: Date, default: Date.now},
     // updated_at: {type: Date, default: Date.now}
 },
