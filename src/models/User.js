@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     id: 'string',
-    apelido: {type: String, unique: true, required: false},
+    apelido: {type: String, required: false},
     nome: 'string',
     funcional: 'string', 
     telefone: 'string',
@@ -16,7 +16,7 @@ const userSchema = new Schema({
     plantao: 'string',
     chefe_plantao: Boolean,
     password: 'string'
-    //password: {type: 'string' select:false} - para o password nao aparecer na busca e listagem
+    //password: {type: 'string' select:false} - para o password nao aparecer na busca e listagem. Mas quando for usar o hash vai omitir tambem dai tem que colocar no User.findOne({apelido}).select('+password') 
     // created_at: {type: Date, default: Date.now},
     // updated_at: {type: Date, default: Date.now}
 },
